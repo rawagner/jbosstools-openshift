@@ -15,8 +15,8 @@ import java.util.List;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.BackButton;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
@@ -42,7 +42,7 @@ public class SecondWizardPage {
 		new DefaultShell(OpenShiftLabel.Shell.NEW_APP_WIZARD);
 		
 		// Wait until data are processed - there is no other way currently
-		new WaitUntil(new WidgetIsEnabled(new BackButton()), TimePeriod.LONG);
+		new WaitUntil(new ControlIsEnabled(new BackButton()), TimePeriod.LONG);
 	}
 	
 	/**
@@ -84,26 +84,25 @@ public class SecondWizardPage {
 			}
 			
 			if (createEnvironmentVariable) {
-				new WaitUntil(new ButtonWithTextIsAvailable(OpenShiftLabel.Button.ENV_VAR),
-					TimePeriod.NORMAL);
+				new WaitUntil(new ButtonWithTextIsAvailable(OpenShiftLabel.Button.ENV_VAR));
 					
 				new PushButton(OpenShiftLabel.Button.ENV_VAR).click();
 				
-				new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.ENV_VARS),
+				new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.ENV_VARS),
 						TimePeriod.LONG);
 				
 				new DefaultShell(OpenShiftLabel.Shell.ENV_VARS);
 				
 				new PushButton(OpenShiftLabel.Button.ADD).click();
 				
-				new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.EDIT_ENV_VAR),
+				new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.EDIT_ENV_VAR),
 						TimePeriod.LONG);
 				
 				new DefaultShell(OpenShiftLabel.Shell.EDIT_ENV_VAR);
 				new DefaultText(0).setText("varname");
 				new DefaultText(1).setText("varvalue");
 				
-				new WaitUntil(new WidgetIsEnabled(new OkButton()), TimePeriod.NORMAL);
+				new WaitUntil(new ControlIsEnabled(new OkButton()));
 				
 				new OkButton().click();
 				
@@ -111,8 +110,7 @@ public class SecondWizardPage {
 				
 				new OkButton().click();
 				
-				new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.ENV_VARS),
-						TimePeriod.NORMAL);
+				new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.ENV_VARS));
 				
 				new DefaultShell(OpenShiftLabel.Shell.NEW_APP_WIZARD);
 			}
@@ -129,7 +127,7 @@ public class SecondWizardPage {
 		if (cartridges != null) {
 			new PushButton(OpenShiftLabel.Button.ADD).click();
 			
-			new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.ADD_CARTRIDGES),
+			new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.ADD_CARTRIDGES),
 					TimePeriod.LONG);
 			
 			new DefaultShell(OpenShiftLabel.Shell.ADD_CARTRIDGES);
@@ -139,7 +137,7 @@ public class SecondWizardPage {
 				new DefaultTable().getItem(cartridge).setChecked(true);
 			}
 			
-			new WaitUntil(new WidgetIsEnabled(new OkButton()), TimePeriod.NORMAL);
+			new WaitUntil(new ControlIsEnabled(new OkButton()));
 			
 			new OkButton().click();
 			
@@ -155,7 +153,7 @@ public class SecondWizardPage {
 		if (URL != null) {
 			new PushButton(OpenShiftLabel.Button.ADD).click();
 			
-			new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.ADD_CARTRIDGES),
+			new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.ADD_CARTRIDGES),
 					TimePeriod.LONG);
 			
 			new DefaultShell(OpenShiftLabel.Shell.ADD_CARTRIDGES);
@@ -164,7 +162,7 @@ public class SecondWizardPage {
 			new DefaultTable().getItem(OpenShiftLabel.EmbeddableCartridge.DOWNLOADABLE_CARTRIDGE).setChecked(true);
 			new DefaultText(0).setText(URL);
 			
-			new WaitUntil(new WidgetIsEnabled(new OkButton()), TimePeriod.NORMAL);
+			new WaitUntil(new ControlIsEnabled(new OkButton()));
 			
 			new OkButton().click();
 			

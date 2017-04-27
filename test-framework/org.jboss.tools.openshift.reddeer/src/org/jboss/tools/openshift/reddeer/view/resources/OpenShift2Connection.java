@@ -12,8 +12,8 @@ package org.jboss.tools.openshift.reddeer.view.resources;
 
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 
 public class OpenShift2Connection extends AbstractOpenShiftConnection {
 

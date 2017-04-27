@@ -19,7 +19,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.jgit.api.Git;
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.RadioButton;
@@ -144,7 +144,7 @@ public class TestUtils {
 		try {
 			new DefaultShell(OpenShiftLabel.Shell.UNTRUSTED_SSL_CERTIFICATE);
 			new YesButton().click();
-			new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.UNTRUSTED_SSL_CERTIFICATE));
+			new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.UNTRUSTED_SSL_CERTIFICATE));
 		} catch (RedDeerException ex) {
 			// no dialog was presented
 		}

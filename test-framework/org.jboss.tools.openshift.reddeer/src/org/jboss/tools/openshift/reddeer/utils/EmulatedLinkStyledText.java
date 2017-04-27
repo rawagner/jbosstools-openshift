@@ -14,9 +14,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Widget;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
 import org.jboss.reddeer.swt.impl.styledtext.DefaultStyledText;
 
 /**
@@ -47,7 +47,7 @@ public class EmulatedLinkStyledText extends DefaultStyledText {
 		Point p = getLocationAtOffset(offset);
 		e.x = p.x;
 		e.y = p.y;
-		WidgetHandler.getInstance().notify(SWT.MouseUp, e, swtWidget);
+		WidgetHandler.getInstance().notifyWidget(SWT.MouseUp, e, swtWidget);
 	}
 
 	// returns point (x,y) of offset in this StyledText widget.
