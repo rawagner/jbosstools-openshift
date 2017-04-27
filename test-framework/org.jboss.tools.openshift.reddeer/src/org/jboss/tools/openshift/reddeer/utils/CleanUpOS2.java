@@ -13,17 +13,17 @@ package org.jboss.tools.openshift.reddeer.utils;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.jface.exception.JFaceLayerException;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.table.DefaultTable;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.tools.openshift.reddeer.view.OpenShiftExplorerView;
 import org.jboss.tools.openshift.reddeer.view.resources.OpenShift2Connection;
 import org.junit.After;
@@ -72,7 +72,7 @@ public class CleanUpOS2 {
 			
 				new ContextMenu(OpenShiftLabel.ContextMenu.DELETE_DOMAIN).select();
 				
-				new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.DELETE_DOMAIN));
+				new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.DELETE_DOMAIN));
 				
 				new DefaultShell(OpenShiftLabel.Shell.DELETE_DOMAIN).setFocus();
 				if (!new CheckBox(0).isChecked()) {
@@ -101,12 +101,11 @@ public class CleanUpOS2 {
 		while (new DefaultTable().getItems().size() != 0) {			
 			new DefaultTable().getItem(0).select();
 			
-			new WaitUntil(new WidgetIsEnabled(new PushButton(OpenShiftLabel.Button.REMOVE)), 
-					TimePeriod.NORMAL);
+			new WaitUntil(new ControlIsEnabled(new PushButton(OpenShiftLabel.Button.REMOVE)));
 			
 			new PushButton(OpenShiftLabel.Button.REMOVE).click();
 			
-			new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.REMOVE_SSH_KEY), TimePeriod.NORMAL);
+			new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.REMOVE_SSH_KEY));
 			
 			new DefaultShell(OpenShiftLabel.Shell.REMOVE_SSH_KEY);
 			
@@ -125,6 +124,6 @@ public class CleanUpOS2 {
 		
 		new OkButton().click();
 		
-		new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.MANAGE_SSH_KEYS), TimePeriod.LONG);
+		new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.MANAGE_SSH_KEYS), TimePeriod.LONG);
 	}
 }

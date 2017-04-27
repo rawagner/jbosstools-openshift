@@ -20,13 +20,13 @@ import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
 import org.jboss.reddeer.core.matcher.ClassMatcher;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
-import org.jboss.reddeer.eclipse.equinox.security.ui.StoragePreferencePage;
+import org.jboss.reddeer.eclipse.equinox.security.ui.storage.StoragePreferencePage;
 import org.jboss.reddeer.junit.requirement.Requirement;
 import org.jboss.reddeer.swt.api.TableItem;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.tools.cdk.reddeer.requirements.DisableSecureStorageRequirement.DisableSecureStorage;
 
@@ -71,16 +71,15 @@ public class DisableSecureStorageRequirement implements Requirement<DisableSecur
         preferenceDialog.open();
         preferenceDialog.select(storagePage);
         try {
-	        new WaitUntil(new WidgetIsFound<org.eclipse.swt.custom.CLabel>(
-	        		new ClassMatcher(org.eclipse.swt.custom.CLabel.class), 
-	        		new WithMnemonicTextMatcher("Secure Storage")), TimePeriod.NORMAL);
+	        new WaitUntil(new WidgetIsFound(org.eclipse.swt.custom.CLabel.class, 
+	        		new WithMnemonicTextMatcher("Secure Storage")));
 	        log.info("Getting master password providers");
 	        List<TableItem> items = storagePage.getMasterPasswordProviders();
 	        for (TableItem item : items) {
 	        	log.info("Uncheking table item: " + item.getText());
 	            item.setChecked(checked);
 	        }
-	        new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
+	        new WaitUntil(new JobIsRunning(), TimePeriod.DEFAULT, false);
 	        storagePage.apply();
         } catch (WaitTimeoutExpiredException exc) {
         	log.error("Secure Storage preferences page has timed out");

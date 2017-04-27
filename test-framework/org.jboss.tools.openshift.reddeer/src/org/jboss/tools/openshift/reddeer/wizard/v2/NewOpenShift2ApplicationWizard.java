@@ -17,12 +17,12 @@ import org.jboss.reddeer.common.exception.WaitTimeoutExpiredException;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.tools.openshift.reddeer.condition.ServerAdapterExists;
 import org.jboss.tools.openshift.reddeer.condition.v2.OpenShiftApplicationExists;
 import org.jboss.tools.openshift.reddeer.utils.OpenShiftLabel;
@@ -64,7 +64,7 @@ public class NewOpenShift2ApplicationWizard extends AbstractOpenShiftApplication
 		
 		new ContextMenu(OpenShiftLabel.ContextMenu.NEW_OS2_APPLICATION).select();
 		
-		new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
+		new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
 				TimePeriod.LONG);
 
 		new DefaultShell(OpenShiftLabel.Shell.NEW_APP_WIZARD).setFocus();
@@ -166,20 +166,20 @@ public class NewOpenShift2ApplicationWizard extends AbstractOpenShiftApplication
 	 */
 	public void postCreateSteps(boolean cartridgeIsEmbedded) {
 		if (cartridgeIsEmbedded) {
-			new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.EMBEDDED_CARTRIDGE), 
+			new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.EMBEDDED_CARTRIDGE), 
 					TimePeriod.VERY_LONG);
 		
 			new DefaultShell(OpenShiftLabel.Shell.EMBEDDED_CARTRIDGE);
 			new OkButton().click();
 		}
 		
-		new WaitUntil(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.ACCEPT_HOST_KEY), TimePeriod.VERY_LONG);
+		new WaitUntil(new ShellIsAvailable(OpenShiftLabel.Shell.ACCEPT_HOST_KEY), TimePeriod.VERY_LONG);
 		
 		new DefaultShell(OpenShiftLabel.Shell.ACCEPT_HOST_KEY);
 		
 		new YesButton().click();
 
-		new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
+		new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.NEW_APP_WIZARD),
 				TimePeriod.VERY_LONG);
 		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 	}
@@ -193,7 +193,7 @@ public class NewOpenShift2ApplicationWizard extends AbstractOpenShiftApplication
 	 */
 	public void verifyApplication(String appName, String project) {
 		try {
-			new WaitUntil(new OpenShiftApplicationExists(username, server, domain, appName), TimePeriod.NORMAL);
+			new WaitUntil(new OpenShiftApplicationExists(username, server, domain, appName));
 		} catch (WaitTimeoutExpiredException ex) {
 			fail("OpenShift 2 application has not been created successfully, or it is not at least shown"
 					+ " in OpenShift explorer view under specific domain.");

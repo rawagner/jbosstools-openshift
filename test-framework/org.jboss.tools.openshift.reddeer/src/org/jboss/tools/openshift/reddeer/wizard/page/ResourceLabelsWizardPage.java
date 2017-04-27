@@ -12,8 +12,8 @@ package org.jboss.tools.openshift.reddeer.wizard.page;
 
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.button.YesButton;
@@ -44,11 +44,11 @@ public class ResourceLabelsWizardPage {
 		new LabeledText(OpenShiftLabel.TextLabels.LABEL).setText(name);
 		new LabeledText(OpenShiftLabel.TextLabels.VALUE).setText(value);
 		
-		new WaitUntil(new WidgetIsEnabled(new OkButton()));
+		new WaitUntil(new ControlIsEnabled(new OkButton()));
 		
 		new OkButton().click();
 		
-		new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.RESOURCE_LABEL));
+		new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.RESOURCE_LABEL));
 		
 		return new DefaultTable().containsItem(name, 0) &&
 				new DefaultTable().containsItem(value, 1);
@@ -69,11 +69,11 @@ public class ResourceLabelsWizardPage {
 		new LabeledText(OpenShiftLabel.TextLabels.LABEL).setText(newName);
 		new LabeledText(OpenShiftLabel.TextLabels.VALUE).setText(newValue);
 		
-		new WaitUntil(new WidgetIsEnabled(new OkButton()));
+		new WaitUntil(new ControlIsEnabled(new OkButton()));
 		
 		new OkButton().click();
 		
-		new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.RESOURCE_LABEL));
+		new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.RESOURCE_LABEL));
 		
 		return new DefaultTable().containsItem(newName, 0) &&
 				new DefaultTable().containsItem(newValue, 1);
@@ -91,7 +91,7 @@ public class ResourceLabelsWizardPage {
 		new DefaultShell(OpenShiftLabel.Shell.REMOVE_LABEL);
 		new YesButton().click();
 		
-		new WaitWhile(new ShellWithTextIsAvailable(OpenShiftLabel.Shell.REMOVE_LABEL));
+		new WaitWhile(new ShellIsAvailable(OpenShiftLabel.Shell.REMOVE_LABEL));
 		
 		return new DefaultTable().containsItem(name);
 	}
