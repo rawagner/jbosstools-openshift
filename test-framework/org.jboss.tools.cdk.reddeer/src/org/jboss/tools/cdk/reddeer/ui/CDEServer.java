@@ -18,6 +18,7 @@ import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.AbstractServer;
+import org.jboss.reddeer.eclipse.wst.server.ui.cnf.DefaultServer;
 import org.jboss.reddeer.eclipse.wst.server.ui.cnf.ServersViewEnums.ServerState;
 import org.jboss.reddeer.swt.api.TreeItem;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
@@ -32,7 +33,7 @@ import org.jboss.tools.cdk.reddeer.condition.ServerHasState;
  * @author odockal
  *
  */
-public class CDEServer extends AbstractServer {
+public class CDEServer extends DefaultServer {
 	
 	private static Logger log = Logger.getLogger(CDEServer.class);
 	
